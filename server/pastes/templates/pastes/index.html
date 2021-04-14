@@ -1,0 +1,95 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Copia PasteBin</title>
+        <meta charset="utf-8">
+        <link rel = "shourtcut icon" href = "{% static 'images/mr.png' %}" type = "mr/png">
+        <link rel="stylesheet" href="{% static 'style/style.css' %}" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div id = "main">
+            {% if user.is_authenticated %}
+                <h2>Welcome, {{ user.username }}!</h2>
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="{% url 'detail'%}">Clona PasteBin</a>
+                        </div>
+
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account settings<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    <li><a href="{% url 'password_reset' %}">Reset Passoword</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="{% url 'pastes:paste_list'%}">Paste List</a></li>
+                            <li><a href="{% url 'pastes:add_paste'%}">Paste Add</a></li>
+                      </ul>
+                    </div>
+                </nav>
+            {% else %}
+                <h2>Login or register</h2>
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="{% url 'detail'%}">Clona PasteBin</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'user:register' %}">Register</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {% endif %}
+        </div>    
+        <br><br>
+ 
+  <!--Scuza-mi aceasta parte de style, dar altfel nu-mi mergea schimbarile-->   
+   
+<style>
+.navbar-inverse {
+    background-color: rgb(22, 68, 90);
+    border-color: aquamarine;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0;
+    border: 3px solid transparent;
+}
+
+a {
+    color: aqua;
+}
+#main {
+    margin-top: 1px;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 15px;
+    border-style: solid;
+    border-color: rgb(15, 171, 243);
+    text-align: center;
+    background-color: rgb(104, 124, 238);
+}
+h2 {
+    color: aqua;
+}
+
+body {
+    background-color: burlywood;
+}
+</style>
+</body>
+</html>
