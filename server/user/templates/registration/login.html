@@ -1,0 +1,88 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Copia PasteBin</title>
+    <link rel = "shourtcut icon" href = "{% static 'images/mr.png' %}" type = "mr/png">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}" type="text/css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    {% block content %}
+    <div id = "main">
+      <h1>Login</h1>
+    </div>
+
+    <div id = "header">
+      {% if form.errors %}
+        <p style="color: red">Your username and password didn't match. Please try again.</p>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+
+        {% for field in form %}
+            {{ field.label_tag }}<br>
+            {{ field }}<br>
+
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+
+            {% if field.help_text %}
+              <p><small style="color: grey">{{ field.help_text }}</small></p>
+            {% endif %}
+
+        {% endfor %}
+        
+        <button class="btn btn-success btn-lg">Login</button>
+        <br>
+        <hr>
+      </form>
+      <ul>
+        <a href="{% url 'user:register' %}">New to My Site? Register</a><br>
+        <a href="{% url 'password_reset' %}">Can't remember your password?! Reset password</a>
+      </ul>
+    </div>
+    {% endblock %}
+  </body>
+
+<style>
+#main {
+    margin-top: 1px;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 15px;
+    border-style: solid;
+    border-color: rgb(15, 171, 243);
+    text-align: center;
+    background-color: rgb(104, 124, 238);
+}
+#header {
+    margin-top: 5px;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 15px;
+    background-color: rgb(14, 81, 112);
+    border-style: solid;
+    border-color: rgb(190, 222, 236);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 30px;
+    width: auto;
+    height: auto;
+}
+body {
+    background-color: burlywood;
+}
+
+</style>
+
+</html>
